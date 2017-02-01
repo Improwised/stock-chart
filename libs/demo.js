@@ -1,8 +1,9 @@
 if(window.location.search.length == 0){
     window.location = '?chart=YHOO';
 }
-
-getJson("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20=%20%22"+window.location.search.substr(1).split('&')[0].split('=')[1]+"%22%20and%20startDate%20=%20%222012-09-11%22%20and%20endDate%20=%20%222014-02-11%22&diagnostics=true&format=json&env=store://datatables.org/alltableswithkeys")
+var end_date = moment().format('YYYY-MM-DD');
+var start_date = moment(end_date).subtract(1, "year").format("YYYY-MM-DD");
+getJson("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20=%20%22"+window.location.search.substr(1).split('&')[0].split('=')[1]+"%22%20and%20startDate%20=%20%22"+start_date+"%22%20and%20endDate%20=%20%22"+end_date+"%22&diagnostics=true&format=json&env=store://datatables.org/alltableswithkeys")
 
 $("#stock").val(window.location.search.substr(1).split('&')[0].split('=')[1]);
 
