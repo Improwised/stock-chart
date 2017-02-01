@@ -17,10 +17,10 @@ function getJson(url){
     jQuery.ajax({
             url: url,
             context: document.body,
-    }).done(function(chartData) {
+        }).done(function(chartData) {
         jQuery('#loader').hide();
         jQuery('#data').show();
-        jQuery('#data').css('display:block');
+        jQuery('#data').css('display','block');
         var jsonData = [];
         var priceData = [];
         var volumeData = [];
@@ -99,12 +99,7 @@ function drawChart (chartData, jsonData, priceData, volumeData, summaryData) {
               var selectedDate = new Date(date);
               $("#endDate").datepicker( "option", "minDate", selectedDate );
                 if( $( "#endDate" ).val() && $( "#startDate" ).val() ){
-                  HumbleFinance.zoom( moment().isoWeekdayCalc({
-                    rangeStart: new Date($( "#startDate" ).val()),
-                    rangeEnd: new Date($( "#endDate" ).val()),
-                    weekdays: [1,2,3,4,5], //weekdays Mon to Fri
-                    // exclusions: ['6 Apr 2015','7 Apr 2015']  //public holidays
-                  }), 'days' );
+                  zoomout($( "#startDate" ).val(), $( "#endDate" ).val());
                 }
             }
 
@@ -120,16 +115,42 @@ function drawChart (chartData, jsonData, priceData, volumeData, summaryData) {
 
       $( "#endDate" ).change(function() {
         if( $( "#endDate" ).val() && $( "#startDate" ).val() ){
-          HumbleFinance.zoom( moment().isoWeekdayCalc({
-            rangeStart: new Date($( "#startDate" ).val()),
-            rangeEnd: new Date($( "#endDate" ).val()),
-            weekdays: [1,2,3,4,5], //weekdays Mon to Fri
-            // exclusions: ['6 Apr 2015','7 Apr 2015']  //public holidays
-          }), 'days' );
+                zoomout($( "#startDate" ).val(), $( "#endDate" ).val());
         }
       });
 
     });
+
+    function zoomout(startDate, endDate) {
+        for(var i = 0; i < jsonData.length; i++) {
+            if(moment(jsonData[i]['Date']).format('YYYY/MM/DD') == startDate) {
+                var x1 = i;
+            }
+            if(moment(jsonData[i]['Date']).format('YYYY/MM/DD') == endDate) {
+                var x2 = i;
+            }
+        }
+
+        var prevSelection = HumbleFinance.graphs.summary.prevSelection;
+
+        // Check for previous selection
+        if (!prevSelection) {
+            y1 = 0;
+            y2 = 0;
+        } else {
+
+            y1 = prevSelection.first.y;
+            y2 = prevSelection.second.y;
+        }
+        var area = {
+            x1: x1,
+            y1: y1,
+            x2: x2,
+            y2: y2
+        };
+
+        HumbleFinance.graphs.summary.setSelection(area);
+    }
 
     // $('dateRange').update($( "#startDate" ).val() + ' - ' + $( "#endDate" ).val());
 
