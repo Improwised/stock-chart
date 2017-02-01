@@ -1,5 +1,3 @@
-$('#data').hide();
-$('#loader').show();
 if(window.location.search.length == 0){
     window.location = '?chart=YHOO';
 }
@@ -19,8 +17,6 @@ function getJson(url){
             context: document.body,
         }).done(function(chartData) {
         jQuery('#loader').hide();
-        jQuery('#data').show();
-        jQuery('#data').css('display','block');
         var jsonData = [];
         var priceData = [];
         var volumeData = [];
@@ -84,14 +80,13 @@ function drawChart (chartData, jsonData, priceData, volumeData, summaryData) {
     xmax = Math.floor(xmax);
 
     jQuery(function ($) {
-        // $("#financeTitle").text(window.location.search.substr(1).split('&')[0].split('=')[1]);
 
         $( "#startDate" ).val(moment(new Date(jsonData[0].Date)).format('YYYY/MM/DD'));
         $( "#endDate" ).val(moment(new Date(jsonData[jsonData.length-1].Date)).format('YYYY/MM/DD'));
 
         $( "#startDate" ).datepicker({
             dateFormat: 'yy/mm/dd',
-            // beforeShow: customRange,
+            beforeShowDay: $.datepicker.noWeekends,
             minDate: moment(new Date(jsonData[0].Date)).format('YYYY/MM/DD'),
             maxDate: moment(new Date(jsonData[jsonData.length-1].Date)).format('YYYY/MM/DD'),
             onSelect: function(date){
@@ -107,6 +102,7 @@ function drawChart (chartData, jsonData, priceData, volumeData, summaryData) {
         });
         $( "#endDate" ).datepicker({
             dateFormat: 'yy/mm/dd',
+            beforeShowDay: $.datepicker.noWeekends,
             minDate: moment(new Date(jsonData[0].Date)).format('YYYY/MM/DD'),
             maxDate: moment(new Date(jsonData[jsonData.length-1].Date)).format('YYYY/MM/DD')
         });
