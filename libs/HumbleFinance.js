@@ -430,10 +430,6 @@ var HumbleFinance = {
      */
     zoom: function (x) {
 
-        console.log(this.graphs);
-        console.log(this.graphs.summary.prevSelection);
-        console.log(this.graphs.summary.axes.x);
-
         var prevSelection = this.graphs.summary.prevSelection;
         var xAxis = this.graphs.summary.axes.x;
         var x1, x2, y1, y2;

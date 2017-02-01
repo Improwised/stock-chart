@@ -13,7 +13,10 @@
     -webkit-user-select: none;
     user-select: none;
 }
-
+ #loader {
+    margin-top: 300px;
+    margin-left: 350px;
+}
 #labels {
     position: absolute;
     width: 800px;

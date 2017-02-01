@@ -1,4 +1,5 @@
-
+$('#data').hide();
+$('#loader').show();
 if(window.location.search.length == 0){
     window.location = '?chart=YHOO';
 }
@@ -14,9 +15,12 @@ $("#stock").change(function () {
 
 function getJson(url){
     jQuery.ajax({
-        url: url,
-          context: document.body,
-        }).done(function(chartData) {
+            url: url,
+            context: document.body,
+    }).done(function(chartData) {
+        jQuery('#loader').hide();
+        jQuery('#data').show();
+        jQuery('#data').css('display:block');
         var jsonData = [];
         var priceData = [];
         var volumeData = [];
