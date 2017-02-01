@@ -83,7 +83,7 @@ function drawChart (chartData, jsonData, priceData, volumeData, summaryData) {
 
         $( "#startDate" ).val(moment(new Date(jsonData[0].Date)).format('YYYY/MM/DD'));
         $( "#endDate" ).val(moment(new Date(jsonData[jsonData.length-1].Date)).format('YYYY/MM/DD'));
-
+        zoomout($( "#startDate" ).val(), $( "#endDate" ).val());
         $( "#startDate" ).datepicker({
             dateFormat: 'yy/mm/dd',
             beforeShowDay: $.datepicker.noWeekends,
