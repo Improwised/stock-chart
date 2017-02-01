@@ -1,8 +1,8 @@
 # Demo of interactive charts
 
-this are the liberty we are using
+Running at [www.improwised.com/stock-chart/](http://www.improwised.com/stock-chart/)
 
-API used for getting stock data => http://query.yahooapis.com/v1/public/yql
+These are the libraries we are using:
 
-Chart Library used => Humble Finance
-http://www.humblesoftware.com/finance/index
+* [Yahoo API](http://query.yahooapis.com/v1/public/yql) getting stock data
+* Chart Library[Humble Finance](http://www.humblesoftware.com/finance/index)
